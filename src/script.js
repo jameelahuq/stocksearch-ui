@@ -63,7 +63,7 @@ app.controller('addController', function($scope, $http){
     ticker = ticker.toUpperCase();
     var url = "http://dev.markitondemand.com/Api/v2/Lookup/jsonp?input=" + ticker + "&callback=JSON_CALLBACK";
     $http.jsonp(url).success((data) => {
-      console.log("searchies!!!");
+      console.log("searchies for more!!!");
       console.log(data);
       $scope.tickerData = data;
       //$('#tickerSelect').removeClass("hide");

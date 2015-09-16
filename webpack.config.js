@@ -1,15 +1,15 @@
-//var webpack = require('webpack');
-//var path = require('path');
-//var fs = require('fs');
+var webpack = require('webpack');
+var path = require('path');
+var fs = require('fs');
 
-//var nodeModules = {};
-//fs.readdirSync('node_modules')
-//    .filter(function(x) {
-//      return ['.bin'].indexOf(x) === -1;
-//    })
-//    .forEach(function(mod) {
-//      nodeModules[mod] = 'commonjs ' + mod;
-//    });
+var nodeModules = {};
+fs.readdirSync('node_modules')
+    .filter(function(x) {
+      return ['.bin'].indexOf(x) === -1;
+    })
+    .forEach(function(mod) {
+      nodeModules[mod] = 'commonjs ' + mod;
+    });
 
 module.exports = {
  entry: "./src/script.js",
@@ -20,8 +20,8 @@ module.exports = {
  },
  module: {
    loaders: [
-     { test: /\.js/, exclude:"node_modules", loader: "babel-loader" }
+     { test: /\.js/, loader: "babel-loader" }
    ]
- }
-  //externals: nodeModules
+ },
+  externals: nodeModules
 };
