@@ -10,12 +10,9 @@
 #tickerSelect {
   width: 100%;
 }
-
 .tickerItem {
   cursor: pointer;
-
 }
-
 .tickerItem:hover {
   color: silver;
   background-color: dodgerblue;
@@ -25,9 +22,38 @@
   padding: 5px;
   background-color: #ededf3;
   border-bottom: 1px solid gray;
-
 }
-
 .hide {
   display: none;
+}
+
+.displayedTicker {
+  text-align: center;
+
+}
+.displayedTicker > * {
+  display: inline-block;
+  /*background-color: black;*/
+  /*color: white;*/
+  /*height: 100px;*/
+  /*width: 100px;*/
+}
+
+h1 {
+  text-align: center;
+}
+#name  {
+  text-align: center;
+  font-size: 150%;
+  font-weight: 900;
+}
+.fa-plus-circle {
+  cursor: pointer;
+  color: limegreen;
+  font-size: 200%;
+  vertical-align: 15%;
+  padding-right: 2px;
+}
+.fa-plus-circle:active {
+  color: #006600;
 }

@@ -1,8 +1,9 @@
-//var express = require('express');
-//let exp = express();
-import http from 'http';
+"use strict";
+//import http from 'http';
 
 var app = angular.module('app', ['ngRoute']);
+
+
 
 //app.constant('flavor', 'chocolate');
 //first is key, second is flavor
@@ -35,21 +36,34 @@ app.controller('mainController', function($scope) {
 app.controller('addController', function($scope, $http){
   $scope.message = 'Imma add your trackas~~~.';
   $scope.addTickerToTracked = () => {
-    console.log("");
   };
 
-  $scope.tickerDisplay = (tickerData) => {
-    //$scope.selected.addClass('hide');
-    console.log(tickerData);
+  $scope.tickerFinder = "";
+
+  $scope.addingTicker = () => {
+    //$scope.displayedTicker
+    return $scope.displayedTicker !== undefined && ($scope.tickerFinder ===  "");
   }
 
+  $scope.tickerDisplay = (tickerData) => {
+    //$('#tickerSelect').addClass('hide');
+    $scope.displayedTicker = tickerData;
+    $scope.tickerFinder = "";
+    //console.log($scope.displayedTicker + "hello");
+  };
+
   $scope.tickerData = {Symbol: ""};
+
+  $scope.addTicker = () => {
+    console.log("FJEFJEFOMGFMF");
+  };
 
   $scope.searchTicker = () => {
     var ticker = $scope.tickerFinder;
     ticker = ticker.toUpperCase();
     var url = "http://dev.markitondemand.com/Api/v2/Lookup/jsonp?input=" + ticker + "&callback=JSON_CALLBACK";
     $http.jsonp(url).success((data) => {
+      console.log("searchies!!!");
       console.log(data);
       $scope.tickerData = data;
       //$('#tickerSelect').removeClass("hide");
@@ -89,3 +103,6 @@ app.controller('trackedController', function($scope){
 //let addTickerToTracked = () => {
 //  console.log("if this works, I'll be amazed");
 //};
+
+
+
