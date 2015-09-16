@@ -1,6 +1,15 @@
-var scotchApp = angular.module('scotchApp', ['ngRoute']);
+//var express = require('express');
+//let exp = express();
+import http from 'http';
 
-scotchApp.config(function($routeProvider) {
+var app = angular.module('app', ['ngRoute']);
+
+//app.constant('flavor', 'chocolate');
+//first is key, second is flavor
+//then your controller must have it as an arg
+
+
+app.config(function($routeProvider) {
   $routeProvider
 
   .when('/', {
@@ -8,25 +17,75 @@ scotchApp.config(function($routeProvider) {
     controller : 'mainController'
   })
 
-  .when('/about', {
-    templateUrl : 'about.html',
-    controller : 'aboutController'
+  .when('/add', {
+    templateUrl : 'add.html',
+    controller : 'addController'
   })
 
-  .when('/contact', {
-    templateUrl : 'contact.html',
-    controller : 'contactController'
+  .when('/tracked', {
+    templateUrl : 'tracked.html',
+    controller : 'trackedController'
   });
 });
 
-scotchApp.controller('mainController', function($scope){
-  $scope.message = 'Everyone come and see how good I look!';
+app.controller('mainController', function($scope) {
+  $scope.message = "HEH?";
 });
 
-scotchApp.controller('aboutController', function($scope){
-  $scope.message = 'Look! I am an about page.';
+app.controller('addController', function($scope, $http){
+  $scope.message = 'Imma add your trackas~~~.';
+  $scope.addTickerToTracked = () => {
+    console.log("");
+  };
+
+  $scope.tickerDisplay = (tickerData) => {
+    //$scope.selected.addClass('hide');
+    console.log(tickerData);
+  }
+
+  $scope.tickerData = {Symbol: ""};
+
+  $scope.searchTicker = () => {
+    var ticker = $scope.tickerFinder;
+    ticker = ticker.toUpperCase();
+    var url = "http://dev.markitondemand.com/Api/v2/Lookup/jsonp?input=" + ticker + "&callback=JSON_CALLBACK";
+    $http.jsonp(url).success((data) => {
+      console.log(data);
+      $scope.tickerData = data;
+      //$('#tickerSelect').removeClass("hide");
+    });
+  };
+  //$scope.searchTicker("http://dev.markitondemand.com/Api/v2/Lookup/jsonp?input=" + ticker + "&callback=JSON_CALLBACK")
 });
 
-scotchApp.controller('contactController', function($scope){
+app.controller('trackedController', function($scope){
   $scope.message = 'Contact us! JK. This is just a demo.';
 });
+
+
+
+
+
+//
+//app.controller("planet-drop-down", ($scope, $http) => {
+//
+//  $scope.planetArray = [];
+//  $scope.getPlanetsOnPage = (url) => {
+//    $http.get(url).success((data) => {
+//      console.log(data.results);
+//      $scope.planetArray.push.apply($scope.planetArray, data.results);
+//      if(data.next !== null) {
+//        //console.log(data.next);
+//        $scope.getPlanetsOnPage(data.next);
+//      }
+//    });
+//    //console.log($scope.planetArray[0].name);
+//  };
+//  $scope.getPlanetsOnPage("http://swapi.co/api/planets/");
+//  console.log($scope.planetArray);
+
+
+
+//let addTickerToTracked = () => {
+//  console.log("if this works, I'll be amazed");
+//};

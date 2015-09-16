@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="scotchApp">
+<html lang="en" ng-app="app">
 <head>
   <meta charset="UTF-8">
   <title>My Practice Routing Page</title>
@@ -7,26 +7,26 @@
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" />
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
-  <script src="script.js"></script>
+  <script src="dist/bundle.js"></script>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body ng-controller="mainController">
   <header>
     <nav class="navbar navbar-default">
       <div class="container">
         <div class="navbar-header">
-          <a class="navbar-brand" href="/">Angular Routing Example</a>
+          <a class="navbar-brand" href="/">Stock Searcher</a>
         </div>
 
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
-          <li><a href="#about"><i class="fa fa-shield"></i> About</a></li>
-          <li><a href="#contact"><i class="fa fa-comment"></i> Contact</a></li>
+          <li><a href="#"><i class="fa fa-home"></i> Profile</a></li>
+          <li><a href="#add"><i class="fa fa-shield"></i> Add</a></li>
+          <li><a href="#tracked"><i class="fa fa-comment"></i> Tracked</a></li>
         </ul>
       </div>
     </nav>
   </header>
   <div id="main">
-    {{ message }}
     <div ng-view></div>
 
   </div>

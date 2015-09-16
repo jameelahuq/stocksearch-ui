@@ -1,0 +1,33 @@
+#tickerSearchBar {
+  width: 40%;
+  height: 40%;
+  display: block;
+
+}
+#tickerSymbol {
+  width: 100%;
+}
+#tickerSelect {
+  width: 100%;
+}
+
+.tickerItem {
+  cursor: pointer;
+
+}
+
+.tickerItem:hover {
+  color: silver;
+  background-color: dodgerblue;
+}
+
+#tickerSelect {
+  padding: 5px;
+  background-color: #ededf3;
+  border-bottom: 1px solid gray;
+
+}
+
+.hide {
+  display: none;
+}
