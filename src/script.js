@@ -2,8 +2,7 @@
 //import http from 'http';
 
 var app = angular.module('app', ['ngRoute']);
-
-
+//let track = require('../src/track-express.js');
 
 //app.constant('flavor', 'chocolate');
 //first is key, second is flavor
@@ -33,30 +32,30 @@ app.controller('mainController', function($scope) {
   $scope.message = "HEH?";
 });
 
-app.controller('addController', function($scope, $http){
+app.controller('addController', ['$scope', 'Tracked', '$http', function($scope, Tracked, $http){
+
+
   $scope.message = 'Imma add your trackas~~~.';
-  $scope.addTickerToTracked = () => {
+  $scope.addTickerToTracked = (ticker) => {
+    console.log(ticker);
+    Tracked.add(ticker).then((data)=>console.log('data', data));
   };
 
   $scope.tickerFinder = "";
 
-  $scope.addingTicker = () => {
+  $scope.isAddingTicker = () => {
     //$scope.displayedTicker
     return $scope.displayedTicker !== undefined && ($scope.tickerFinder ===  "");
-  }
+  };
+
 
   $scope.tickerDisplay = (tickerData) => {
-    //$('#tickerSelect').addClass('hide');
     $scope.displayedTicker = tickerData;
     $scope.tickerFinder = "";
-    //console.log($scope.displayedTicker + "hello");
   };
 
   $scope.tickerData = {Symbol: ""};
 
-  $scope.addTicker = () => {
-    console.log("FJEFJEFOMGFMF");
-  };
 
   $scope.searchTicker = () => {
     var ticker = $scope.tickerFinder;
@@ -66,43 +65,26 @@ app.controller('addController', function($scope, $http){
       console.log("searchies for more!!!");
       console.log(data);
       $scope.tickerData = data;
-      //$('#tickerSelect').removeClass("hide");
     });
   };
-  //$scope.searchTicker("http://dev.markitondemand.com/Api/v2/Lookup/jsonp?input=" + ticker + "&callback=JSON_CALLBACK")
+}]);
+
+app.controller('trackedController', ['$scope', 'Tracked', function($scope, Tracked){
+  $scope.message = 'These are the stocks you are currently tracking...';
+  $scope.getTracked = () => {
+    Tracked.get().then((data) => {console.log(data)}).catch((e) => {console.log(e)});
+  };
+
+}]);
+
+
+app.factory('Tracked', function($http) {
+  var Tracked = () => {};
+  Tracked.get = () => $http.get('localhost:3000/tracked');
+  Tracked.add = (tickerObj) => $http.post('http://localhost:3000/tracked', {newTicker: tickerObj});
+
+  return Tracked;
 });
-
-app.controller('trackedController', function($scope){
-  $scope.message = 'Contact us! JK. This is just a demo.';
-});
-
-
-
-
-
-//
-//app.controller("planet-drop-down", ($scope, $http) => {
-//
-//  $scope.planetArray = [];
-//  $scope.getPlanetsOnPage = (url) => {
-//    $http.get(url).success((data) => {
-//      console.log(data.results);
-//      $scope.planetArray.push.apply($scope.planetArray, data.results);
-//      if(data.next !== null) {
-//        //console.log(data.next);
-//        $scope.getPlanetsOnPage(data.next);
-//      }
-//    });
-//    //console.log($scope.planetArray[0].name);
-//  };
-//  $scope.getPlanetsOnPage("http://swapi.co/api/planets/");
-//  console.log($scope.planetArray);
-
-
-
-//let addTickerToTracked = () => {
-//  console.log("if this works, I'll be amazed");
-//};
 
 
 

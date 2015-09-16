@@ -5,7 +5,7 @@
 
 <div class="container" id="tickerSearchBar">
   <input ng-model="tickerFinder" ng-change="searchTicker()" class="search" id="tickerSymbol" placeholder="search ticker">
-  <div ng-model="selected" ng-show="tickerData.length > 0" ng-repeat="ticker in tickerData" id="tickerSelect" ng-class="{'hide': addingTicker()}" ng-click="tickerDisplay(ticker)">
+  <div ng-model="selected" ng-show="tickerData.length > 0" ng-repeat="ticker in tickerData" id="tickerSelect" ng-class="{'hide': isAddingTicker()}" ng-click="tickerDisplay(ticker)">
     <div ng-model="tickerItem" class="tickerItem" id="{{ticker.Symbol}}" >
       Symbol: {{ticker.Symbol}} Name: {{ticker.Name}} Exchange: {{ticker.Exchange}}
     </div>
@@ -13,7 +13,7 @@
 </div>
 
 <div ng-model="displayedTicker" ng-show="displayedTicker !== undefined" class="displayedTicker">
-  <i class="fa fa-plus-circle" ng-click="addTicker()"></i>
+  <i class="fa fa-plus-circle" ng-click="addTickerToTracked(displayedTicker)"></i>
   <h1>{{displayedTicker.Symbol}}     {{displayedTicker.Exchange}}</h1>
   <div id="name">{{displayedTicker.Name}}</div>
 </div>
