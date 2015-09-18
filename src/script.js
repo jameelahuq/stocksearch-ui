@@ -14,7 +14,7 @@ app.config(function($routeProvider) {
 
   .when('/', {
     templateUrl : 'home.html',
-    controller : 'mainController'
+    controller : 'mainCtrl'
   })
 
   .when('/add', {
@@ -62,25 +62,32 @@ app.controller('addController', ['$scope', 'Tracked', '$http', function($scope, 
     ticker = ticker.toUpperCase();
     var url = "http://dev.markitondemand.com/Api/v2/Lookup/jsonp?input=" + ticker + "&callback=JSON_CALLBACK";
     $http.jsonp(url).success((data) => {
-      console.log("searchies for more!!!");
+      console.log("searchies!!!");
       console.log(data);
       $scope.tickerData = data;
     });
   };
 }]);
 
+var array = [];
+
 app.controller('trackedController', ['$scope', 'Tracked', function($scope, Tracked){
   $scope.message = 'These are the stocks you are currently tracking...';
   $scope.getTracked = () => {
-    Tracked.get().then((data) => {console.log(data)}).catch((e) => {console.log(e)});
+    console.log("stuff");
+    Tracked.get() //attach callback
+        .then((data) => {array.push(data.data.tracked)})
+        .catch((e) => {console.log(e)});
+    console.log(array);
   };
+
 
 }]);
 
 
 app.factory('Tracked', function($http) {
   var Tracked = () => {};
-  Tracked.get = () => $http.get('localhost:3000/tracked');
+  Tracked.get = () => $http.get('http://localhost:3000/tracked');
   Tracked.add = (tickerObj) => $http.post('http://localhost:3000/tracked', {newTicker: tickerObj});
 
   return Tracked;

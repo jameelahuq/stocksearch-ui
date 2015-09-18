@@ -103,28 +103,33 @@
 	    ticker = ticker.toUpperCase();
 	    var url = "http://dev.markitondemand.com/Api/v2/Lookup/jsonp?input=" + ticker + "&callback=JSON_CALLBACK";
 	    $http.jsonp(url).success(function (data) {
-	      console.log("searchies for more!!!");
+	      console.log("searchies!!!");
 	      console.log(data);
 	      $scope.tickerData = data;
 	    });
 	  };
 	}]);
 	
+	var array = [];
+	
 	app.controller('trackedController', ['$scope', 'Tracked', function ($scope, Tracked) {
 	  $scope.message = 'These are the stocks you are currently tracking...';
 	  $scope.getTracked = function () {
-	    Tracked.get().then(function (data) {
-	      console.log(data);
+	    console.log("stuff");
+	    Tracked.get() //attach callback
+	    .then(function (data) {
+	      array.push(data.data.tracked);
 	    })['catch'](function (e) {
 	      console.log(e);
 	    });
+	    console.log(array);
 	  };
 	}]);
 	
 	app.factory('Tracked', function ($http) {
 	  var Tracked = function Tracked() {};
 	  Tracked.get = function () {
-	    return $http.get('localhost:3000/tracked');
+	    return $http.get('http://localhost:3000/tracked');
 	  };
 	  Tracked.add = function (tickerObj) {
 	    return $http.post('http://localhost:3000/tracked', { newTicker: tickerObj });
