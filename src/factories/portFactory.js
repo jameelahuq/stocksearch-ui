@@ -3,9 +3,9 @@
 // */
 stocksUI.factory('Tracked', function($http) {
   var Tracked = () => {};
-  Tracked.get = () => $http.get('http://localhost:3000/tracked');
-  Tracked.add = (tickerObj) => $http.post('http://localhost:3000/tracked', {newTicker: tickerObj});
-  Tracked.del = (tickerSym, refresh) => $http.post('http://localhost:3000/delete', {tickerSymbol: tickerSym});
+  Tracked.get = () => $http.get('https://git.heroku.com/thawing-plains-4288.git/tracked');
+  Tracked.add = (tickerObj) => $http.post('https://git.heroku.com/thawing-plains-4288.git/tracked', {newTicker: tickerObj});
+  Tracked.del = (tickerSym, refresh) => $http.post('https://git.heroku.com/thawing-plains-4288.git/delete', {tickerSymbol: tickerSym});
 
   return Tracked;
 });
