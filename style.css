@@ -57,3 +57,13 @@ h1 {
 .fa-plus-circle:active {
   color: #006600;
 }
+.fa-minus-circle {
+  cursor: pointer;
+  color: #FF0000;
+  font-size: 200%;
+  vertical-align: 15%;
+  padding-right: 2px;
+}
+.fa-minus-circle:active {
+  color: maroon;
+}

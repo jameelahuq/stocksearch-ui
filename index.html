@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="app">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Stocks</title>
@@ -13,25 +13,23 @@
 </head>
 
 
-<body class="container" ng-controller="mainCtrl">
+<body ng-app="stocks-ui">
   <header>
     <nav class="navbar navbar-default">
       <div class="container">
         <div class="navbar-header">
-          <a class="navbar-brand" href="/">Stock Searcher</a>
+          <a class="navbar-brand" href="/">{{title}}</a>
         </div>
 
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="#"><i class="fa fa-home"></i> Profile</a></li>
-          <li><a href="#add"><i class="fa fa-shield"></i> Add</a></li>
-          <li><a href="#tracked"><i class="fa fa-comment"></i> Tracked</a></li>
+          <li><a ui-sref="main"><i class="fa fa-home"></i> Profile</a></li>
+          <li><a ui-sref="add"><i class="fa fa-shield"></i> Add</a></li>
+          <li><a ui-sref="track"><i class="fa fa-comment"></i> Tracked</a></li>
         </ul>
       </div>
     </nav>
   </header>
-  <div id="main">
-    <div ng-view></div>
-
+    <div ui-view></div>
   </div>
 </body>
 </html>

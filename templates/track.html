@@ -1,0 +1,23 @@
+<!--<div class="jumbotron text-center">-->
+  <!--<h1>Tracked Stocks</h1>-->
+  <!--<p>{{ message }}</p>-->
+<!--</div>-->
+
+<!--<div class="container">-->
+<!--<button ng-click="getTracked()"></button>-->
+<!--<div ng-model="trackedTickerDisplay" ng-repeat="ticker in arrayOfTrackedTickers">fdjkhaslfkjhe{{arrayOfTrackedTickers}}</div>-->
+
+<!--</div>-->
+
+<div class="jumbotron text-center">
+  <h1>Tracked Stocks</h1>
+  <p>{{ message }}</p>
+</div>
+​
+<button ng-click="getTracked()"></button>
+​
+<div ng-model="trackedTickerDisplay" class="trackedTicker">
+  <i class="fa fa-minus-circle" ng-click="removeTicker()"></i>
+  <!--<h1>{{**EXCHANGE**}} {{**SYMBOL**}}</h1>-->
+  <!--<div id="name">{{**TICKER NAME**}}</div>-->
+</div>
