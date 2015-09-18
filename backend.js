@@ -9,7 +9,7 @@ let exp = express();
 exp.use(function(req,res,next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Cache-Control, Pragma, Origin, Authorization, Content-Type, X-Requested-With");
-  res.header("Access-Control-Allow-Methods", "GET, PUT, POST");
+  res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
   next();
 });
 
@@ -32,7 +32,7 @@ exp.post('/tracked', function (req, res, next) {
   fs.readFile('tracked.json', function(err, dataBuffer) {
     var data = JSON.parse(dataBuffer);
     console.log(req.body);
-    data.tracked.push(req.body.newTicker);
+    data.tracked[req.body.newTicker.Symbol] = (req.body.newTicker);
 
     fs.writeFile('tracked.json', JSON.stringify(data), function(err) {
       res.send(data.tracked);
@@ -40,14 +40,17 @@ exp.post('/tracked', function (req, res, next) {
   })
 });
 
-//exp.get('*', (req, res) => {
-////  fs.readFile(__dirname + req.url, function (err, data) {
-////    if (err) console.log(err);
-////    res.writeHead("content-type", "text/html");
-////    //res.send(data);
-////    //console.log(data);
-////  });
-//});
+exp.post('/delete', function(req, res, next) {
+  fs.readFile('tracked.json', function(err, dataBuffer) {
+    var data = JSON.parse(dataBuffer);
+    console.log(req.body);
+    delete data.tracked[req.body.tickerSymbol];
+
+    fs.writeFile('tracked.json', JSON.stringify(data), function(err) {
+      res.send(data.tracked);
+    })
+  })
+});
 
 exp.listen(PORT, function() {
   console.log("listen listen listen");

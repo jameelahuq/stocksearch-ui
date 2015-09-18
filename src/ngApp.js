@@ -26,20 +26,3 @@ stocksUI.config(function($stateProvider, $urlRouterProvider) {
           })
 
     });
-
-
-
-//app.config(function($routeProvider) {
-//  $routeProvider
-//
-//
-//      .when('/add', {
-//        templateUrl : 'add.html',
-//        controller : 'addController'
-//      })
-//
-//      .when('/tracked', {
-//        templateUrl : 'tracked.html',
-//        controller : 'trackedController'
-//      });
-//});

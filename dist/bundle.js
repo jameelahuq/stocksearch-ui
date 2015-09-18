@@ -50,17 +50,17 @@
 	"use strict";
 	//import http from 'http';
 	
-	__webpack_require__(/*! ./ngApp */ 4);
+	__webpack_require__(/*! ./ngApp */ 1);
 	
 	//import "./controllers/NavCtrl.js";
 	
 	__webpack_require__(/*! ./controllers/MainCtrl.js */ 2);
 	
-	__webpack_require__(/*! ./controllers/AddCtrl.js */ 5);
+	__webpack_require__(/*! ./controllers/AddCtrl.js */ 3);
 	
-	__webpack_require__(/*! ./controllers/TrackCtrl.js */ 6);
+	__webpack_require__(/*! ./controllers/TrackCtrl.js */ 4);
 	
-	__webpack_require__(/*! ./factories/portFactory.js */ 7);
+	__webpack_require__(/*! ./factories/portFactory.js */ 5);
 	
 	//var array = [];
 	//
@@ -69,25 +69,7 @@
 	//
 
 /***/ },
-/* 1 */,
-/* 2 */
-/*!*************************************!*\
-  !*** ./src/controllers/MainCtrl.js ***!
-  \*************************************/
-/***/ function(module, exports) {
-
-	/**
-	 * Created by HUQ on 9/17/15.
-	 */
-	"use strict";
-	
-	stocksUI.controller("MainCtrl", function ($scope) {
-	  return $scope.message = "Here is my main pages message";
-	});
-
-/***/ },
-/* 3 */,
-/* 4 */
+/* 1 */
 /*!**********************!*\
   !*** ./src/ngApp.js ***!
   \**********************/
@@ -119,24 +101,25 @@
 	    controller: "TrackCtrl"
 	  });
 	});
-	
-	//app.config(function($routeProvider) {
-	//  $routeProvider
-	//
-	//
-	//      .when('/add', {
-	//        templateUrl : 'add.html',
-	//        controller : 'addController'
-	//      })
-	//
-	//      .when('/tracked', {
-	//        templateUrl : 'tracked.html',
-	//        controller : 'trackedController'
-	//      });
-	//});
 
 /***/ },
-/* 5 */
+/* 2 */
+/*!*************************************!*\
+  !*** ./src/controllers/MainCtrl.js ***!
+  \*************************************/
+/***/ function(module, exports) {
+
+	/**
+	 * Created by HUQ on 9/17/15.
+	 */
+	"use strict";
+	
+	stocksUI.controller("MainCtrl", function ($scope) {
+	  return $scope.message = "Here is my main pages message";
+	});
+
+/***/ },
+/* 3 */
 /*!************************************!*\
   !*** ./src/controllers/AddCtrl.js ***!
   \************************************/
@@ -148,19 +131,16 @@
 	"use strict";
 	
 	stocksUI.controller("AddCtrl", function ($scope, $http, Tracked) {
-	  $scope.message = "Add some trackers BBBIIIIIIIIIII";
+	  $scope.message = "Add some tickers to track";
 	
 	  $scope.addTickerToTracked = function (ticker) {
 	    console.log(ticker);
-	    Tracked.add(ticker).then(function (data) {
-	      return console.log('data', data);
-	    });
+	    Tracked.add(ticker); //.then((data)=>console.log('data', data));
 	  };
 	
 	  $scope.tickerFinder = "";
 	
 	  $scope.isAddingTicker = function () {
-	    //$scope.displayedTicker
 	    return $scope.displayedTicker !== undefined && $scope.tickerFinder === "";
 	  };
 	
@@ -178,7 +158,6 @@
 	    var url = "http://dev.markitondemand.com/Api/v2/Lookup/jsonp?input=" + ticker + "&callback=JSON_CALLBACK";
 	    $http.jsonp(url).success(function (data) {
 	      console.log("searchies!!!");
-	      console.log(data);
 	      $scope.tickerData = data;
 	    });
 	  };
@@ -187,7 +166,7 @@
 	//stocksUI.controller("AddCtrl", ['$scope', 'Tracked', '$http', (($scope, Tracked, $http) => {
 
 /***/ },
-/* 6 */
+/* 4 */
 /*!**************************************!*\
   !*** ./src/controllers/TrackCtrl.js ***!
   \**************************************/
@@ -196,28 +175,31 @@
 	//stocksUI.controller('TrackCtrl', ['$scope', 'Tracked', function($scope, Tracked){
 	'use strict';
 	
-	stocksUI.controller('TrackCtrl', ['$scope', function ($scope) {
+	stocksUI.controller('TrackCtrl', ['$scope', 'Tracked', function ($scope, Tracked) {
 	  $scope.message = 'These are the stocks you are currently tracking...';
-	  $scope.removeTicker = function () {
-	    return console.log('GOOOOAAAAAALL!!!!!');
+	
+	  $scope.displayTrackedTickers = function (objArray) {
+	    $scope.arrayOfTrackedTickers = objArray;
+	    console.log(objArray);
 	  };
 	
 	  $scope.getTracked = function () {
-	    console.log("stuff");
-	    Tracked.get() //attach callback
-	    .then(function (data) {
-	      array.push(data.data.tracked);
+	    console.log("Me so slooooow");
+	    Tracked.get().then(function (data) {
+	      return $scope.displayTrackedTickers(data.data.tracked);
 	    })['catch'](function (e) {
 	      console.log(e);
 	    });
-	    console.log(array);
 	  };
 	
-	  //
+	  $scope.removeTicker = function (ticker) {
+	    console.log("trackCtr: " + ticker.Symbol);
+	    Tracked.del(ticker.Symbol, $scope.getTracked());
+	  };
 	}]);
 
 /***/ },
-/* 7 */
+/* 5 */
 /*!**************************************!*\
   !*** ./src/factories/portFactory.js ***!
   \**************************************/
@@ -235,6 +217,9 @@
 	  };
 	  Tracked.add = function (tickerObj) {
 	    return $http.post('http://localhost:3000/tracked', { newTicker: tickerObj });
+	  };
+	  Tracked.del = function (tickerSym, refresh) {
+	    return $http.post('http://localhost:3000/delete', { tickerSymbol: tickerSym });
 	  };
 	
 	  return Tracked;
