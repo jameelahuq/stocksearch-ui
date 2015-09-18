@@ -2,8 +2,12 @@
   "name": "angstock",
   "version": "1.0.0",
   "description": "",
-  "main": "script.js",
+  "main": "backend.js",
+  "engines": {
+    "node": "4.1.x"
+  },
   "scripts": {
+    "start": "node backend.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Charles Watson (https://www.npmjs.com/~watsoncn) & Jameela Huq (jameelahuq.com) ",
