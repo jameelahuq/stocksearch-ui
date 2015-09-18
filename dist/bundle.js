@@ -213,13 +213,13 @@
 	stocksUI.factory('Tracked', function ($http) {
 	  var Tracked = function Tracked() {};
 	  Tracked.get = function () {
-	    return $http.get('http://localhost:3000/tracked');
+	    return $http.get('https://thawing-plains-4288.herokuapp.com/tracked');
 	  };
 	  Tracked.add = function (tickerObj) {
-	    return $http.post('http://localhost:3000/tracked', { newTicker: tickerObj });
+	    return $http.post('https://thawing-plains-4288.herokuapp.com/tracked', { newTicker: tickerObj });
 	  };
 	  Tracked.del = function (tickerSym, refresh) {
-	    return $http.post('http://localhost:3000/delete', { tickerSymbol: tickerSym });
+	    return $http.post('https://thawing-plains-4288.herokuapp.com/delete', { tickerSymbol: tickerSym });
 	  };
 	
 	  return Tracked;
